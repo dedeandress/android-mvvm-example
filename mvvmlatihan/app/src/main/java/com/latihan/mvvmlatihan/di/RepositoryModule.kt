@@ -2,6 +2,8 @@ package com.latihan.mvvmlatihan.di
 
 import com.latihan.mvvmlatihan.data.PostApi
 import com.latihan.mvvmlatihan.data.PostRepositoryImpl
+import com.latihan.mvvmlatihan.data.db.AppDatabase
+import com.latihan.mvvmlatihan.data.db.PostDao
 import com.latihan.mvvmlatihan.data.source.DataSource
 import com.latihan.mvvmlatihan.data.source.DataSourceImpl
 import com.latihan.mvvmlatihan.domain.repository.PostRepository
@@ -14,8 +16,8 @@ import dagger.Provides
 object RepositoryModule {
 
     @Provides
-    fun providePostRepository(dataSource: DataSource): PostRepository{
-        return PostRepositoryImpl(dataSource)
+    fun providePostRepository(dataSource: DataSource, postDao: PostDao): PostRepository{
+        return PostRepositoryImpl(dataSource, postDao)
     }
 
     @Provides

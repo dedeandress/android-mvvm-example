@@ -1,27 +1,26 @@
 package com.latihan.mvvmlatihan.base
 
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import com.latihan.mvvmlatihan.di.DaggerViewModelInjector
-import com.latihan.mvvmlatihan.di.NetworkModule
-import com.latihan.mvvmlatihan.di.RepositoryModule
+import com.latihan.mvvmlatihan.AppController
+import com.latihan.mvvmlatihan.di.*
 import com.latihan.mvvmlatihan.ui.PostListViewModel
-import com.latihan.mvvmlatihan.di.ViewModelInjector
 
-abstract class BaseViewModel : ViewModel(){
-
-    private val injector: ViewModelInjector = DaggerViewModelInjector
-        .builder()
-        .repositoryModule(RepositoryModule)
-        .networkModule(NetworkModule)
-        .build()
+abstract class BaseViewModel(app: Application) : AndroidViewModel(app){
 
     init {
+        Log.e("BaseViewModel","Unit")
         inject()
     }
 
     private fun inject(){
         when(this){
-            is PostListViewModel -> injector.inject(this)
+            is PostListViewModel -> {
+                Log.e("BaseViewModel", "postlistviewmodel")
+                (getApplication() as AppController).getViewModelInjector().inject(this)
+            }
         }
     }
 

@@ -16,4 +16,6 @@
               app:layout_constraintEnd_toEndOf="parent"
               android:name="com.latihan.mvvmlatihan.ui.PostListFragment"/>
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
