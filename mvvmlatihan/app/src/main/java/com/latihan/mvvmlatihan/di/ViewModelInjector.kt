@@ -1,9 +1,8 @@
 package com.latihan.mvvmlatihan.di
 
-import android.app.Application
 import com.latihan.mvvmlatihan.AppController
-import com.latihan.mvvmlatihan.ui.PostListViewModel
-import dagger.BindsInstance
+import com.latihan.mvvmlatihan.ui.favorite.FavoriteViewModel
+import com.latihan.mvvmlatihan.ui.post.PostListViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,6 +13,7 @@ import javax.inject.Singleton
 interface ViewModelInjector{
 
     fun inject(viewModel: PostListViewModel)
+    fun inject(viewModel: FavoriteViewModel)
     fun inject(viewModel: AppController)
 
     @Component.Builder

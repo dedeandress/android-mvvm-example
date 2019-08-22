@@ -6,11 +6,11 @@ import com.latihan.mvvmlatihan.utils.Resource
 
 interface PostRepository {
 
-    fun getPostList(): LiveData<List<PostModel>>
-
     fun loadPost()
 
-    fun getProgressVisibility(): LiveData<Int>
-
     fun getResource(): LiveData<Resource<List<PostModel>>>
+
+    fun insertPost(post: PostModel)
+
+    fun getFavoritePost(): LiveData<List<PostModel>>
 }

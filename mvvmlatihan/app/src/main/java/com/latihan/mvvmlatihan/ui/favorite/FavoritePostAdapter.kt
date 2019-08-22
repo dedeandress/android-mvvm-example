@@ -1,4 +1,4 @@
-package com.latihan.mvvmlatihan.ui
+package com.latihan.mvvmlatihan.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import com.latihan.mvvmlatihan.R
 import com.latihan.mvvmlatihan.domain.entity.PostModel
 import kotlinx.android.synthetic.main.item_post.view.*
 
-class PostAdapter: RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class FavoritePostAdapter: RecyclerView.Adapter<FavoritePostAdapter.ViewHolder>() {
 
     private val items: ArrayList<PostModel> = arrayListOf()
 
@@ -20,6 +20,11 @@ class PostAdapter: RecyclerView.Adapter<PostAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
+        return ViewHolder(view)
+    }
+
     override fun getItemCount(): Int {
         return items.size
     }
@@ -28,13 +33,8 @@ class PostAdapter: RecyclerView.Adapter<PostAdapter.ViewHolder>() {
         holder.bindPost(items[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
-        return ViewHolder(view)
-    }
 
-    inner class ViewHolder(private val view: View): RecyclerView.ViewHolder(view){
-
+    inner class ViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         fun bindPost(post: PostModel) {
             view.title.text = post.title
             view.body.text = post.body

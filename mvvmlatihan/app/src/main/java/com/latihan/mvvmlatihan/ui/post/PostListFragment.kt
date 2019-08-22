@@ -1,4 +1,4 @@
-package com.latihan.mvvmlatihan.ui
+package com.latihan.mvvmlatihan.ui.post
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -31,6 +33,7 @@ class PostListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "Post"
         return inflater.inflate(R.layout.post_list_fragment, container, false)
     }
 
@@ -45,6 +48,8 @@ class PostListFragment : Fragment() {
         viewModel.getResource().observe(viewLifecycleOwner, Observer {
             handleResult(it)
         })
+
+        itemCallback()
 
     }
 
@@ -68,6 +73,15 @@ class PostListFragment : Fragment() {
                 Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun itemCallback(){
+        adapter.setOnItemClickCallback(object : PostAdapter.OnItemClickCallback{
+            override fun onItemClicked(post: PostModel) {
+                viewModel.insertPost(post)
+                Toast.makeText(requireContext(), "Favorite Post added to list", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
 }

@@ -3,10 +3,9 @@ package com.latihan.mvvmlatihan.base
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import com.latihan.mvvmlatihan.AppController
-import com.latihan.mvvmlatihan.di.*
-import com.latihan.mvvmlatihan.ui.PostListViewModel
+import com.latihan.mvvmlatihan.ui.favorite.FavoriteViewModel
+import com.latihan.mvvmlatihan.ui.post.PostListViewModel
 
 abstract class BaseViewModel(app: Application) : AndroidViewModel(app){
 
@@ -19,6 +18,9 @@ abstract class BaseViewModel(app: Application) : AndroidViewModel(app){
         when(this){
             is PostListViewModel -> {
                 Log.e("BaseViewModel", "postlistviewmodel")
+                (getApplication() as AppController).getViewModelInjector().inject(this)
+            }
+            is FavoriteViewModel -> {
                 (getApplication() as AppController).getViewModelInjector().inject(this)
             }
         }

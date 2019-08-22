@@ -1,4 +1,4 @@
-package com.latihan.mvvmlatihan.ui
+package com.latihan.mvvmlatihan.ui.post
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -13,16 +13,11 @@ class PostListViewModel(app: Application) : BaseViewModel(app) {
     @Inject
     lateinit var postUsecase: PostUsecase
 
-    fun getPost(): LiveData<List<PostModel>>{
-        return postUsecase.getPost()
-    }
-
-    fun getProgressBarVisibility(): LiveData<Int>{
-        return postUsecase.getProgressVisibility()
-    }
-
-
     fun getResource(): LiveData<Resource<List<PostModel>>>{
         return postUsecase.getResource()
+    }
+
+    fun insertPost(postModel: PostModel) {
+        return postUsecase.insertPost(postModel)
     }
 }

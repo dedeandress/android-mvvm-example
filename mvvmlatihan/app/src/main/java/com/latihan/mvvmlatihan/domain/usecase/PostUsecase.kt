@@ -8,15 +8,6 @@ import javax.inject.Inject
 
 class PostUsecase @Inject constructor(private val repository: PostRepository) {
 
-    fun getPost(): LiveData<List<PostModel>>{
-        initPost()
-        return repository.getPostList()
-    }
-
-    fun getProgressVisibility(): LiveData<Int>{
-        return repository.getProgressVisibility()
-    }
-
     private fun initPost(){
         repository.loadPost()
     }
@@ -24,6 +15,14 @@ class PostUsecase @Inject constructor(private val repository: PostRepository) {
     fun getResource(): LiveData<Resource<List<PostModel>>> {
         initPost()
         return repository.getResource()
+    }
+
+    fun favoritePost(): LiveData<List<PostModel>> {
+        return repository.getFavoritePost()
+    }
+
+    fun insertPost(postModel: PostModel) {
+        repository.insertPost(postModel)
     }
 
 }

@@ -15,10 +15,14 @@ import com.latihan.mvvmlatihan.utils.Resource
 import com.latihan.mvvmlatihan.utils.setError
 import com.latihan.mvvmlatihan.utils.setLoading
 import com.latihan.mvvmlatihan.utils.setSuccess
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+
+const val TAG = "PostRepository"
 
 class PostRepositoryImpl @Inject constructor(
     private val dataSource: DataSource,
@@ -26,15 +30,11 @@ class PostRepositoryImpl @Inject constructor(
 ) : PostRepository {
     private lateinit var subscription: Disposable
 
-    private var postLiveData = MutableLiveData<List<PostModel>>()
-
-    private var progressBarVisibility = MutableLiveData<Int>()
+    private var subs = CompositeDisposable()
 
     private var resource = MutableLiveData<Resource<List<PostModel>>>()
 
-    override fun getPostList(): LiveData<List<PostModel>> {
-        return postLiveData
-    }
+    private var favoritePost = MutableLiveData<List<PostModel>>()
 
     override fun loadPost(){
         subscription =  dataSource.getPost()
@@ -51,7 +51,6 @@ class PostRepositoryImpl @Inject constructor(
                 {
                     Log.e("PostRepository", "list : $it")
                     resource.setSuccess(it)
-                    postLiveData.value = it
                 },
                 {
                     resource.setError(it)
@@ -64,7 +63,27 @@ class PostRepositoryImpl @Inject constructor(
         return resource
     }
 
-    override fun getProgressVisibility(): LiveData<Int> {
-        return progressBarVisibility
+    override fun insertPost(post: PostModel) {
+       subs.addAll(Observable.fromCallable { postDao.insert(post) }
+           .subscribeOn(Schedulers.io())
+           .observeOn(AndroidSchedulers.mainThread())
+           .subscribe()
+       )
+    }
+
+    override fun getFavoritePost(): LiveData<List<PostModel>> {
+        subscription = postDao.all
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    favoritePost.value = it
+                },
+                {
+                    Log.e(TAG, "cannot get post from db")
+                }
+            )
+
+        return favoritePost
     }
 }
