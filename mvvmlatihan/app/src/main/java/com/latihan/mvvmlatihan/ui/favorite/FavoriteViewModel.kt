@@ -15,4 +15,8 @@ class FavoriteViewModel(application: Application) : BaseViewModel(application) {
     fun favoritePost(): LiveData<List<PostModel>> {
         return postUsecase.favoritePost()
     }
+
+    fun deletePost(postModel: PostModel) {
+        return postUsecase.deletePost(postModel)
+    }
 }

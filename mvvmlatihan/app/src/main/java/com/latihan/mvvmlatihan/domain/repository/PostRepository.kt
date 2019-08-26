@@ -13,4 +13,6 @@ interface PostRepository {
     fun insertPost(post: PostModel)
 
     fun getFavoritePost(): LiveData<List<PostModel>>
+
+    fun deleteFavoritePost(post: PostModel)
 }

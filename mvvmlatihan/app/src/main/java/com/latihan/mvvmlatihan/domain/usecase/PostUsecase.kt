@@ -25,4 +25,8 @@ class PostUsecase @Inject constructor(private val repository: PostRepository) {
         repository.insertPost(postModel)
     }
 
+    fun deletePost(postModel: PostModel) {
+        repository.deleteFavoritePost(postModel)
+    }
+
 }

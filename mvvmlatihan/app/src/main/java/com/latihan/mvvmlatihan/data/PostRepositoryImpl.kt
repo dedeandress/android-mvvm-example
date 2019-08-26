@@ -86,4 +86,13 @@ class PostRepositoryImpl @Inject constructor(
 
         return favoritePost
     }
+
+    override fun deleteFavoritePost(post: PostModel) {
+        subs.addAll(Observable.fromCallable { postDao.delelePost(post) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+        )
+    }
+
 }

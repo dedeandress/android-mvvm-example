@@ -42,6 +42,13 @@ class FavoriteFragment : Fragment() {
         viewModel.favoritePost().observe(viewLifecycleOwner, Observer {
             adapter.bind(it)
         })
+
+        adapter.setOnDeleteClickCallback(object : FavoritePostAdapter.OnDeleteClickCallback{
+            override fun onItemClicked(post: PostModel) {
+                viewModel.deletePost(post)
+            }
+        })
+
     }
 
 }

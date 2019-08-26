@@ -32,7 +32,7 @@ class PostAdapter: RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindPost(items[position])
-        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(items[position]) }
+        holder.addBtn.setOnClickListener { onItemClickCallback.onItemClicked(items[position]) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,6 +46,9 @@ class PostAdapter: RecyclerView.Adapter<PostAdapter.ViewHolder>() {
             view.title.text = post.title
             view.body.text = post.body
         }
+
+        val addBtn = view.add_btn
+
     }
 
     interface OnItemClickCallback{

@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:colorButtonNormal">@color/colorAccent</item>
+        <item name="android:textColor">@color/White</item>
+    </style>
+
+    <style name="ToggleBtn" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="android:colorButtonNormal">@color/White</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:text">more</item>
+
+    </style>
+
 </resources>
